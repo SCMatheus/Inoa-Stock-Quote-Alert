@@ -1,0 +1,3 @@
+/Teste.Inoa.StockQuoteAlert/Teste.Inoa.StockQuoteAlert/bin
+/Teste.Inoa.StockQuoteAlert/.vs
+/Teste.Inoa.StockQuoteAlert/Teste.Inoa.StockQuoteAlert/obj
