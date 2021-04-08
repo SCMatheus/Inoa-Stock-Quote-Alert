@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Teste.Inoa.StockQuoteAlert.Configuracoes
+﻿namespace Teste.Inoa.StockQuoteAlert.Settings
 {
     public class ApiSettings
     {
+        public ApiSettings(string url, string apiKey, int intervalToRequest)
+        {
+            Url = url;
+            ApiKey = apiKey;
+            IntervalToRequest = intervalToRequest;
+        }
         public string Url { get; set; }
         public string ApiKey { get; set; }
         public int IntervalToRequest { get; set; }
