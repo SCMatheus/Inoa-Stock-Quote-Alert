@@ -9,6 +9,6 @@ namespace Teste.Inoa.StockQuoteAlert.Interfaces
 {
     public interface ISettingsService
     {
-        GeneralSettings LoadAllConfigs();
+        GeneralSettings LoadAllSettings();
     }
 }

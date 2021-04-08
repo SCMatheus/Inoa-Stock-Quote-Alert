@@ -24,7 +24,7 @@ namespace Teste.Inoa.StockQuoteAlert.Services
         {
             _fileSettingsPath = fileSettingsPath;
         }
-        public GeneralSettings LoadAllConfigs()
+        public GeneralSettings LoadAllSettings()
         {
             var settingsFile = new IniFile(_fileSettingsPath);
 
@@ -44,8 +44,13 @@ namespace Teste.Inoa.StockQuoteAlert.Services
                 throw new Exception("Mail settings error: Port is invalid.");
             var mailSenderPasswordValue = file.IniReadValue(_sectionMail, _mailSenderPasswordKey);
 
-            return new MailSettings(mailSenderValue, mailReciverValue, mailHostValue,
+            var mailSettings = new MailSettings(mailSenderValue, mailReciverValue, mailHostValue,
                                     mailPortValue, mailSenderPasswordValue);
+
+            if(!mailSettings.IsValid())
+                throw new Exception("Mail settings error: the value of some parameter is invalid.");
+
+            return mailSettings;
         }
         private ApiSettings LoadApiSettings(IniFile file)
         {
