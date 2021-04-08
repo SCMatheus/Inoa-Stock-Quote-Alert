@@ -1,6 +1,0 @@
-/Teste.Inoa.StockQuoteAlert/.vs
-/Teste.Inoa.StockQuoteAlert/packages
-/Teste.Inoa.StockQuoteAlert/Teste.Inoa.StockQuoteAlert/bin
-/Teste.Inoa.StockQuoteAlert/Teste.Inoa.StockQuoteAlert/obj
-/Teste.Inoa.StockQuoteAlert/Teste.Inoa.StockQuoteAlert.TestesUnitarios/bin
-/Teste.Inoa.StockQuoteAlert/Teste.Inoa.StockQuoteAlert.TestesUnitarios/obj
