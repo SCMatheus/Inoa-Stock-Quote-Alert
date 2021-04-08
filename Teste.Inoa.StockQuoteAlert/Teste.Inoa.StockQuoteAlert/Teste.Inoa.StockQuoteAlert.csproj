@@ -49,5 +49,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configuracoes\" />
+    <Folder Include="Contratos\" />
+    <Folder Include="InjecaoDeDependencias\" />
+    <Folder Include="Servicos\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
