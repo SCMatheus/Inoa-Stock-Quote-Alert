@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ISettingsService.cs" />
+    <Compile Include="Persistence\IniFile.cs" />
+    <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Settings\ApiSettings.cs" />
     <Compile Include="Settings\MailSettings.cs" />
     <Compile Include="Program.cs" />
