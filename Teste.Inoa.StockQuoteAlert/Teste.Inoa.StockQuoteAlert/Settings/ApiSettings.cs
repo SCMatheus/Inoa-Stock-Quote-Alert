@@ -2,14 +2,20 @@
 {
     public class ApiSettings
     {
-        public ApiSettings(string url, string apiKey, int intervalToRequest)
+        public string Url { get; set; }
+        public string Key { get; set; }
+        public int IntervalToRequest { get; set; }
+        public ApiSettings(string url, string key, int intervalToRequest)
         {
             Url = url;
-            ApiKey = apiKey;
+            Key = key;
             IntervalToRequest = intervalToRequest;
         }
-        public string Url { get; set; }
-        public string ApiKey { get; set; }
-        public int IntervalToRequest { get; set; }
+        public bool IsValid()
+        {
+            if (string.IsNullOrWhiteSpace(Url) || string.IsNullOrWhiteSpace(Key))
+                return false;
+            return true;
+        }
     }
 }

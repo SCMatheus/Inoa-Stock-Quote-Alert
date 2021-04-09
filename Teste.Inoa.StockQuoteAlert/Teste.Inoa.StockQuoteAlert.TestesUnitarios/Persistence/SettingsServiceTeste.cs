@@ -8,12 +8,16 @@ namespace Teste.Inoa.StockQuoteAlert.TestesUnitarios.Persistence
     [TestClass]
     public class SettingsServiceTeste
     {
+        private readonly string _path;
+        public SettingsServiceTeste()
+        {
+            _path = Directory.GetCurrentDirectory();
+        }
         [TestMethod]
         public void TestLoadAllSettingsMailSenderError()
         {
-            var path = Directory.GetCurrentDirectory();
             var settingsServiceError = Assert.ThrowsException<ArgumentException>(() => 
-                                                    new SettingsService($"{path}\\Resources\\" +
+                                                    new SettingsService($"{_path}\\Resources\\" +
                                                     $"Persistence\\SettingsInvalidMailSenderMock.ini")
                                                     .LoadAllSettings());
             Assert.AreEqual(settingsServiceError.Message,"O parâmetro 'address' não pode ser uma cadeia de " +
@@ -23,9 +27,8 @@ namespace Teste.Inoa.StockQuoteAlert.TestesUnitarios.Persistence
         [TestMethod]
         public void TestLoadAllSettingsMailReciverError()
         {
-            var path = Directory.GetCurrentDirectory();
             var settingsServiceError = Assert.ThrowsException<ArgumentException>(() =>
-                                                    new SettingsService($"{path}\\Resources\\" +
+                                                    new SettingsService($"{_path}\\Resources\\" +
                                                     $"Persistence\\SettingsInvalidMailReceiverMock.ini")
                                                     .LoadAllSettings());
             Assert.AreEqual(settingsServiceError.Message, "O parâmetro 'address' não pode ser uma cadeia de " +
@@ -35,9 +38,8 @@ namespace Teste.Inoa.StockQuoteAlert.TestesUnitarios.Persistence
         [TestMethod]
         public void TestLoadAllSettingsMailPortError()
         {
-            var path = Directory.GetCurrentDirectory();
             var settingsServiceError = Assert.ThrowsException<Exception>(() =>
-                                                    new SettingsService($"{path}\\Resources\\" +
+                                                    new SettingsService($"{_path}\\Resources\\" +
                                                     $"Persistence\\SettingsInvalidMailPortMock.ini")
                                                     .LoadAllSettings());
             Assert.AreEqual(settingsServiceError.Message, "Mail settings error: Port is invalid.");
@@ -45,9 +47,8 @@ namespace Teste.Inoa.StockQuoteAlert.TestesUnitarios.Persistence
         [TestMethod]
         public void TestLoadAllSettingsMailHostError()
         {
-            var path = Directory.GetCurrentDirectory();
             var settingsServiceError = Assert.ThrowsException<Exception>(() =>
-                                                    new SettingsService($"{path}\\Resources\\" +
+                                                    new SettingsService($"{_path}\\Resources\\" +
                                                     $"Persistence\\SettingsInvalidMailHostMock.ini")
                                                     .LoadAllSettings());
             Assert.AreEqual(settingsServiceError.Message, "Mail settings error: the value of some parameter is invalid.");
@@ -55,18 +56,51 @@ namespace Teste.Inoa.StockQuoteAlert.TestesUnitarios.Persistence
         [TestMethod]
         public void TestLoadAllSettingsMailSenderPasswordError()
         {
-            var path = Directory.GetCurrentDirectory();
             var settingsServiceError = Assert.ThrowsException<Exception>(() =>
-                                                    new SettingsService($"{path}\\Resources\\" +
+                                                    new SettingsService($"{_path}\\Resources\\" +
                                                     $"Persistence\\SettingsInvalidMailSenderPasswordMock.ini")
                                                     .LoadAllSettings());
             Assert.AreEqual(settingsServiceError.Message, "Mail settings error: the value of some parameter is invalid.");
         }
         [TestMethod]
+        public void TestLoadAllSettingsInvalidPathError()
+        {
+            var settingsServiceError = Assert.ThrowsException<Exception>(() =>
+                                                    new SettingsService($"{_path}\\Resources\\" +
+                                                    $"Persistence\\SettingsInvalidPathMock.ini"));
+            Assert.AreEqual(settingsServiceError.Message, "Settings error: settings file not found.");
+        }
+        [TestMethod]
+        public void TestLoadAllSettingsInvalidApiUrlError()
+        {
+            var settingsServiceError = Assert.ThrowsException<Exception>(() =>
+                                                    new SettingsService($"{_path}\\Resources\\" +
+                                                    $"Persistence\\SettingsInvalidApiUrlMock.ini")
+                                                    .LoadAllSettings());
+            Assert.AreEqual(settingsServiceError.Message, "Api settings error: the value of some parameter is invalid.");
+        }
+        [TestMethod]
+        public void TestLoadAllSettingsInvalidApiKeyError()
+        {
+            var settingsServiceError = Assert.ThrowsException<Exception>(() =>
+                                                    new SettingsService($"{_path}\\Resources\\" +
+                                                    $"Persistence\\SettingsInvalidApiKeyMock.ini")
+                                                    .LoadAllSettings());
+            Assert.AreEqual(settingsServiceError.Message, "Api settings error: the value of some parameter is invalid.");
+        }
+        [TestMethod]
+        public void TestLoadAllSettingsInvalidApiIntervalToRequestError()
+        {
+            var settingsServiceError = Assert.ThrowsException<Exception>(() =>
+                                                    new SettingsService($"{_path}\\Resources\\" +
+                                                    $"Persistence\\SettingsInvalidApiIntervalToRequestMock.ini")
+                                                    .LoadAllSettings());
+            Assert.AreEqual(settingsServiceError.Message, "API settings error: IntervalToRequest is invalid.");
+        }
+        [TestMethod]
         public void TestLoadAllSettingsSuccess()
         {
-            var path = Directory.GetCurrentDirectory();
-            var settingsService = new SettingsService($"{path}\\Resources\\" +
+            var settingsService = new SettingsService($"{_path}\\Resources\\" +
                                                     $"Persistence\\SettingsValidMock.ini");
 
             var generalSettings = settingsService.LoadAllSettings();
@@ -76,6 +110,9 @@ namespace Teste.Inoa.StockQuoteAlert.TestesUnitarios.Persistence
             Assert.AreEqual(generalSettings.Mail.Host, "smtp.gmail.com");
             Assert.AreEqual(generalSettings.Mail.Port, 587);
             Assert.AreEqual(generalSettings.Mail.SenderPassword, "senha123");
+            Assert.AreEqual(generalSettings.Api.Url, "https://teste.com.br");
+            Assert.AreEqual(generalSettings.Api.Key, "123");
+            Assert.AreEqual(generalSettings.Api.IntervalToRequest, 5);
         }
     }
 }

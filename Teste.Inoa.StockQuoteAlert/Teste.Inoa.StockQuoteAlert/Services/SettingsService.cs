@@ -22,6 +22,8 @@ namespace Teste.Inoa.StockQuoteAlert.Services
         private readonly string _fileSettingsPath;
         public SettingsService(string fileSettingsPath)
         {
+            if(!File.Exists(fileSettingsPath))
+                throw new Exception("Settings error: settings file not found.");
             _fileSettingsPath = fileSettingsPath;
         }
         public GeneralSettings LoadAllSettings()
@@ -61,7 +63,12 @@ namespace Teste.Inoa.StockQuoteAlert.Services
             if (!int.TryParse(file.IniReadValue(_sectionApi, _apiIntervalToRequestKey), out apiIntervalToRequest))
                 throw new Exception("API settings error: IntervalToRequest is invalid.");
 
-            return new ApiSettings(apiUrlValue, apiKeyValue, apiIntervalToRequest);
+            var apiSettings = new ApiSettings(apiUrlValue, apiKeyValue, apiIntervalToRequest);
+
+            if (!apiSettings.IsValid())
+                throw new Exception("Api settings error: the value of some parameter is invalid.");
+
+            return apiSettings;
         }
     }
 }

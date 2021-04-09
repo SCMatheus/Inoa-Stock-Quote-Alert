@@ -55,6 +55,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Resources\Persistence\SettingsInvalidApiKeyMock.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Persistence\SettingsInvalidApiIntervalToRequestMock.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Persistence\SettingsInvalidApiUrlMock.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\Persistence\SettingsValidMock.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
