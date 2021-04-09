@@ -1,6 +1,6 @@
-﻿namespace Teste.Inoa.StockQuoteAlert.Stocks
+﻿namespace Teste.Inoa.StockQuoteAlert.Stock
 {
-    public class Stock
+    public class AlertStock
     {
         private string _name;
         public string Name
@@ -10,7 +10,7 @@
         }
         public float SellPrice { get; set; }
         public float BuyPrice { get; set; }
-        public Stock(string name, float sellPrice, float buyPrice)
+        public AlertStock(string name, float sellPrice, float buyPrice)
         {
 
             Name = name.ToUpper();

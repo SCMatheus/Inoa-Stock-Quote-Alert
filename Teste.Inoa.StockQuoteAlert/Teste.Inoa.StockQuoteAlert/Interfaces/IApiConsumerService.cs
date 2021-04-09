@@ -7,8 +7,8 @@ using Teste.Inoa.StockQuoteAlert.Stock;
 
 namespace Teste.Inoa.StockQuoteAlert.Interfaces
 {
-    public interface IStockQuoteAlertService
+    public interface IApiConsumerService
     {
-        void StockQuoteAlert(AlertStock stock);
+        CurrentStock GetCurrentStock(AlertStock alertStock);
     }
 }
