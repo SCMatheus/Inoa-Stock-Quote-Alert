@@ -43,9 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Stocks\Stock.cs" />
+    <Compile Include="Interfaces\IMailSenderService.cs" />
     <Compile Include="Interfaces\ISettingsService.cs" />
+    <Compile Include="Interfaces\IStockQuoteAlertService.cs" />
     <Compile Include="Persistence\IniFile.cs" />
+    <Compile Include="Services\MailSenderService.cs" />
     <Compile Include="Services\SettingsService.cs" />
+    <Compile Include="Services\StockQuoteAlertService.cs" />
     <Compile Include="Settings\ApiSettings.cs" />
     <Compile Include="Settings\MailSettings.cs" />
     <Compile Include="Program.cs" />
