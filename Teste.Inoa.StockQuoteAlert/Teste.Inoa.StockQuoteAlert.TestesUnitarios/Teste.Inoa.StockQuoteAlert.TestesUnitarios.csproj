@@ -49,8 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Persistence\SettingsServiceTeste.cs" />
-    <Compile Include="StockQuoteAlertTeste.cs" />
+    <Compile Include="Services\SettingsServiceTeste.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

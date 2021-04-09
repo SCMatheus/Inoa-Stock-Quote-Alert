@@ -3,7 +3,7 @@ using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Teste.Inoa.StockQuoteAlert.Services;
 
-namespace Teste.Inoa.StockQuoteAlert.TestesUnitarios.Persistence
+namespace Teste.Inoa.StockQuoteAlert.TestesUnitarios.Services
 {
     [TestClass]
     public class SettingsServiceTeste
