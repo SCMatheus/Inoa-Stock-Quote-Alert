@@ -12,6 +12,7 @@ namespace Teste.Inoa.StockQuoteAlert
         {
             try
             {
+                var alertStock = args.Map();
                 DependencyInjectionService.CreateHostBuilder(alertStock).Build().Run();
             }
             catch(Exception ex)
