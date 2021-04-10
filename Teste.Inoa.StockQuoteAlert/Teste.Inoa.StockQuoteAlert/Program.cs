@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 using Teste.Inoa.StockQuoteAlert.DependencyInjection;
 using Teste.Inoa.StockQuoteAlert.Mappers;
 using Teste.Inoa.StockQuoteAlert.Stock;
@@ -16,9 +12,7 @@ namespace Teste.Inoa.StockQuoteAlert
         {
             try
             {
-                //var alertStock = args.Map();
-                var alertStock = new AlertStock("PETR4",22.67, 22.59);
-                DependencyInjectionService.CreateHostBuilder(alertStock).Build().StartAsync();
+                DependencyInjectionService.CreateHostBuilder(alertStock).Build().Run();
             }
             catch(Exception ex)
             {

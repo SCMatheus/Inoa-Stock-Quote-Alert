@@ -72,6 +72,7 @@ namespace Teste.Inoa.StockQuoteAlert.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
+                Console.ReadKey();
             }
         }
         private async Task SendMailForPurchase(AlertStock alertStock, CurrentStock currentStock)
@@ -89,24 +90,28 @@ namespace Teste.Inoa.StockQuoteAlert.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
+                Console.ReadKey();
             }
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            await Task.Delay(TimeSpan.FromMinutes(0.1), stoppingToken);
             _logger.LogInformation($"Service running at: {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
-            try
+            while (!stoppingToken.IsCancellationRequested)
             {
-                while (!stoppingToken.IsCancellationRequested)
+                try
                 {
                     StockQuoteAlert();
-                    await Task.Delay(TimeSpan.FromMinutes(_intervalToRequest), stoppingToken);
                 }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message);
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex.Message);
+                }
+                await Task.Delay(TimeSpan.FromMinutes(_intervalToRequest), stoppingToken);
             }
         }
+
     }
 }
+
