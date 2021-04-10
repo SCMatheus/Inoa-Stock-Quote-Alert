@@ -49,11 +49,11 @@ namespace Teste.Inoa.StockQuoteAlert.Services
         }
         private CurrentStock GetCurrentStock()
         {
-            _logger.LogInformation($"Getting stock value from the API at {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
+            _logger.LogInformation($"Getting stock value from the API at {DateTimeOffset.Now.DateTime}");
 
             var currentStock = _apiConsumerService.GetCurrentStock(_alertStock);
 
-            _logger.LogInformation($"The stock value was obtained from the API at {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
+            _logger.LogInformation($"The stock value was obtained from the API at {DateTimeOffset.Now.DateTime}");
 
             return currentStock;
         }
@@ -61,13 +61,13 @@ namespace Teste.Inoa.StockQuoteAlert.Services
         {
             try
             {
-                _logger.LogInformation($"Sending sales email at {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
+                _logger.LogInformation($"Sending sales email at {DateTimeOffset.Now.DateTime}");
 
                 var message = $"It is a good time to sell your stocks of {alertStock.Name} " +
                           $"the value of the stocks is R$ {currentStock.Price}";
                 await _mailSenderService.SendEmailAsync($"Recommendation for the sale of stocks", message);
 
-                _logger.LogInformation($"Sales email sent at {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
+                _logger.LogInformation($"Sales email sent at {DateTimeOffset.Now.DateTime}");
             }
             catch (Exception ex)
             {
@@ -79,13 +79,13 @@ namespace Teste.Inoa.StockQuoteAlert.Services
         {
             try
             {
-                _logger.LogInformation($"Sending purchase email at {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
+                _logger.LogInformation($"Sending purchase email at {DateTimeOffset.Now.DateTime}");
 
                 var message = $"It is a good time to buy stocks of {alertStock.Name} " +
                               $"the value of the stocks is R$ {currentStock.Price}";
                 await _mailSenderService.SendEmailAsync($"Recommendation for the purchase of stocks", message);
 
-                _logger.LogInformation($"Purchase email sent at {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
+                _logger.LogInformation($"Purchase email sent at {DateTimeOffset.Now.DateTime}");
             }
             catch (Exception ex)
             {
@@ -97,7 +97,7 @@ namespace Teste.Inoa.StockQuoteAlert.Services
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             await Task.Delay(TimeSpan.FromMinutes(0.1), stoppingToken);
-            _logger.LogInformation($"Service running at: {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
+            _logger.LogInformation($"Service running at: {DateTimeOffset.Now.DateTime}");
             while (!stoppingToken.IsCancellationRequested)
             {
                 try
