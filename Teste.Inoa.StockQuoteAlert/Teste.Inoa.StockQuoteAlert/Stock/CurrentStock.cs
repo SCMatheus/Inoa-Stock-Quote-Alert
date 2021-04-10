@@ -10,8 +10,8 @@ namespace Teste.Inoa.StockQuoteAlert.Stock
             get => _name;
             set => _name = value.ToUpper();
         }
-        public float Price { get; set; }
-        public CurrentStock(string name, float price)
+        public double Price { get; set; }
+        public CurrentStock(string name, double price)
         {
             Name = name.ToUpper();
             Price = price;

@@ -8,7 +8,7 @@
     <ProjectGuid>{E2E63BBF-B223-43B1-A703-A9EA9E3CB151}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Teste.Inoa.StockQuoteAlert</RootNamespace>
-    <AssemblyName>Teste.Inoa.StockQuoteAlert</AssemblyName>
+    <AssemblyName>stock-quote-alert</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

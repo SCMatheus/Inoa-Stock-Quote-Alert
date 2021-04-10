@@ -40,7 +40,7 @@ namespace Teste.Inoa.StockQuoteAlert.DTO.Api
         public double MarketCap { get; set; }
 
         [JsonProperty(PropertyName = "price")]
-        public float Price { get; set; }
+        public double Price { get; set; }
 
         [JsonProperty(PropertyName = "change_percent")]
         public double ChangePercent { get; set; }

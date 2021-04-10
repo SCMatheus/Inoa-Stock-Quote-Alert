@@ -16,7 +16,8 @@ namespace Teste.Inoa.StockQuoteAlert
         {
             try
             {
-                var alertStock = args.Map();
+                //var alertStock = args.Map();
+                var alertStock = new AlertStock("PETR4",22.67, 22.59);
                 DependencyInjectionService.CreateHostBuilder(alertStock).Build().StartAsync();
             }
             catch(Exception ex)

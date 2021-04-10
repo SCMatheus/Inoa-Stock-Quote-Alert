@@ -29,34 +29,67 @@ namespace Teste.Inoa.StockQuoteAlert.Services
         }
         public void StockQuoteAlert()
         {
+            try
+            {
+                var currentStock = GetCurrentStock();
+
+                if (currentStock.Price <= _alertStock.BuyPrice)
+                {
+                    SendMailForPurchase(_alertStock, currentStock).GetAwaiter();
+                }
+                else if (currentStock.Price >= _alertStock.SellPrice)
+                {
+                    SendMailForSale(_alertStock, currentStock).GetAwaiter();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        private CurrentStock GetCurrentStock()
+        {
             _logger.LogInformation($"Getting stock value from the API at {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
+
             var currentStock = _apiConsumerService.GetCurrentStock(_alertStock);
+
             _logger.LogInformation($"The stock value was obtained from the API at {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
 
-            if (currentStock.Price <= _alertStock.BuyPrice)
-            {
-                _logger.LogInformation($"Sending purchase email at {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
-                SendMailForPurchase(_alertStock, currentStock).GetAwaiter();
-                _logger.LogInformation($"Sending purchase email at {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
-            }
-            else if(currentStock.Price >= _alertStock.SellPrice)
-            {
-                _logger.LogInformation($"Sending sales email at {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
-                SendMailForSale(_alertStock, currentStock).GetAwaiter();
-                _logger.LogInformation($"Sales email sent at {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
-            }
+            return currentStock;
         }
         private async Task SendMailForSale(AlertStock alertStock, CurrentStock currentStock)
         {
-            var message = $"It is a good time to sell your shares of {alertStock.Name} " +
-                          $"the value of the shares is R$ {currentStock.Price}";
-            await _mailSenderService.SendEmailAsync($"Recommendation for the sale of shares", message);
+            try
+            {
+                _logger.LogInformation($"Sending sales email at {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
+
+                var message = $"It is a good time to sell your stocks of {alertStock.Name} " +
+                          $"the value of the stocks is R$ {currentStock.Price}";
+                await _mailSenderService.SendEmailAsync($"Recommendation for the sale of stocks", message);
+
+                _logger.LogInformation($"Sales email sent at {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+            }
         }
         private async Task SendMailForPurchase(AlertStock alertStock, CurrentStock currentStock)
         {
-            var message = $"It is a good time to buy shares of {alertStock.Name} " +
-                          $"the value of the shares is R$ {currentStock.Price}";
-            await _mailSenderService.SendEmailAsync($"Recommendation for the purchase of shares", message);
+            try
+            {
+                _logger.LogInformation($"Sending purchase email at {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
+
+                var message = $"It is a good time to buy stocks of {alertStock.Name} " +
+                              $"the value of the stocks is R$ {currentStock.Price}";
+                await _mailSenderService.SendEmailAsync($"Recommendation for the purchase of stocks", message);
+
+                _logger.LogInformation($"Sending purchase email at {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+            }
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -67,13 +100,13 @@ namespace Teste.Inoa.StockQuoteAlert.Services
                 while (!stoppingToken.IsCancellationRequested)
                 {
                     StockQuoteAlert();
+                    await Task.Delay(TimeSpan.FromMinutes(_intervalToRequest), stoppingToken);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
             }
-            await Task.Delay(TimeSpan.FromMinutes(_intervalToRequest), stoppingToken);
         }
     }
 }

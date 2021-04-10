@@ -8,9 +8,9 @@
             get => _name;
             set => _name = value.ToUpper();
         }
-        public float SellPrice { get; set; }
-        public float BuyPrice { get; set; }
-        public AlertStock(string name, float sellPrice, float buyPrice)
+        public double SellPrice { get; set; }
+        public double BuyPrice { get; set; }
+        public AlertStock(string name, double sellPrice, double buyPrice)
         {
 
             Name = name.ToUpper();
