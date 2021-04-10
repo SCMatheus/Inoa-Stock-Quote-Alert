@@ -37,12 +37,10 @@ namespace Teste.Inoa.StockQuoteAlert.Services
         }
         private MailSettings LoadMailSettings(IniFile file)
         {
-            int mailPortValue = 0;
-
             var mailSenderValue = new MailAddress(file.IniReadValue(_sectionMail, _mailSenderKey));
             var mailReciverValue = new MailAddress(file.IniReadValue(_sectionMail, _mailReceiverKey));
             var mailHostValue = file.IniReadValue(_sectionMail, _mailHostKey);
-            if (!int.TryParse(file.IniReadValue(_sectionMail, _mailPortKey), out mailPortValue))
+            if (!int.TryParse(file.IniReadValue(_sectionMail, _mailPortKey), out int mailPortValue))
                 throw new Exception("Mail settings error: Port is invalid.");
             var mailSenderPasswordValue = file.IniReadValue(_sectionMail, _mailSenderPasswordKey);
 
@@ -56,11 +54,9 @@ namespace Teste.Inoa.StockQuoteAlert.Services
         }
         private ApiSettings LoadApiSettings(IniFile file)
         {
-            int apiIntervalToRequest = 0;
-
             var apiUrlValue = file.IniReadValue(_sectionApi, _apiUrlKey);
             var apiKeyValue = file.IniReadValue(_sectionApi, _apiApiKey);
-            if (!int.TryParse(file.IniReadValue(_sectionApi, _apiIntervalToRequestKey), out apiIntervalToRequest))
+            if (!int.TryParse(file.IniReadValue(_sectionApi, _apiIntervalToRequestKey), out int apiIntervalToRequest))
                 throw new Exception("API settings error: IntervalToRequest is invalid.");
 
             var apiSettings = new ApiSettings(apiUrlValue, apiKeyValue, apiIntervalToRequest);
