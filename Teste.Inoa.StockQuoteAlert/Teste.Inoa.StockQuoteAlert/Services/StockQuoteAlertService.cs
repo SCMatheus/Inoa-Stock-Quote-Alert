@@ -33,11 +33,11 @@ namespace Teste.Inoa.StockQuoteAlert.Services
             {
                 var currentStock = GetCurrentStock();
 
-                if (_alertStock.BuyPrice <= currentStock.Price)
+                if (currentStock.Price <= _alertStock.BuyPrice)
                 {
                     SendMailForPurchase(_alertStock, currentStock).GetAwaiter();
                 }
-                else if (_alertStock.SellPrice >= currentStock.Price)
+                else if (currentStock.Price >= _alertStock.SellPrice)
                 {
                     SendMailForSale(_alertStock, currentStock).GetAwaiter();
                 }
