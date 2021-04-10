@@ -9,6 +9,6 @@ namespace Teste.Inoa.StockQuoteAlert.Interfaces
 {
     public interface IStockQuoteAlertService
     {
-        void StockQuoteAlert(AlertStock stock);
+        void StockQuoteAlert();
     }
 }
