@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Teste.Inoa.StockQuoteAlert.DependencyInjection;
+using Teste.Inoa.StockQuoteAlert.Mappers;
+using Teste.Inoa.StockQuoteAlert.Stock;
 
 namespace Teste.Inoa.StockQuoteAlert
 {
@@ -10,6 +14,16 @@ namespace Teste.Inoa.StockQuoteAlert
     {
         static void Main(string[] args)
         {
+            try
+            {
+                var alertStock = args.Map();
+                DependencyInjectionService.CreateHostBuilder(alertStock).Build().StartAsync();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.ReadKey();
+            }
         }
     }
 }
