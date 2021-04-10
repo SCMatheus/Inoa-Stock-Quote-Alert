@@ -30,10 +30,8 @@ namespace Teste.Inoa.StockQuoteAlert.Services
                 var response = await client.GetAsync($"stock_price?key={ _apiSettings.Key }&symbol={alertStock.Name}");
                 if (!response.IsSuccessStatusCode)
                     throw new Exception($"Api response error: {response.StatusCode}");
-
-                var currentStockDTO = await response.Content.ReadAsAsync<CurrentStockDTO>();
-
-                return currentStockDTO;
+  
+                return await response.Content.ReadAsAsync<CurrentStockDTO>();
             }
         }
 
