@@ -85,7 +85,7 @@ namespace Teste.Inoa.StockQuoteAlert.Services
                               $"the value of the stocks is R$ {currentStock.Price}";
                 await _mailSenderService.SendEmailAsync($"Recommendation for the purchase of stocks", message);
 
-                _logger.LogInformation($"Sending purchase email at {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
+                _logger.LogInformation($"Purchase email sent at {DateTimeOffset.Now:dd/MM/yy:hh:MM}");
             }
             catch (Exception ex)
             {
