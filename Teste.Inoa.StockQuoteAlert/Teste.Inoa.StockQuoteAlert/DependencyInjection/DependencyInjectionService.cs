@@ -14,25 +14,37 @@ namespace Teste.Inoa.StockQuoteAlert.DependencyInjection
         public static IHostBuilder CreateHostBuilder(AlertStock alertStock)
         {
             return Host.CreateDefaultBuilder()
+                       .ConfigureLogging((_, builder) =>
+                       {
+                           builder.AddFile("logs/app-{Date}.json", isJson: true);
+                       })
                        .ConfigureServices((hostContext, services) =>
                        {
-                       services.AddTransient<ISettingsService>((x) =>
-                                            new SettingsService($"{Directory.GetCurrentDirectory()}\\{_settingsFile}"));
-                       services.AddTransient<IMailSenderService, MailSenderService>();
-                       services.AddTransient<IApiConsumerService, ApiConsumerService>();
-                       services.AddTransient<IStockQuoteAlertService>((x) => 
-                                            new StockQuoteAlertService(x.GetRequiredService<IMailSenderService>(),
-                                                                        x.GetRequiredService<IApiConsumerService>(),
-                                                                        x.GetRequiredService<ISettingsService>(),
-                                                                        x.GetRequiredService<ILogger<StockQuoteAlertService>>(),
-                                                                        alertStock
-                                                                        ));
-                       services.AddHostedService((x) => new StockQuoteAlertService(x.GetRequiredService<IMailSenderService>(),
-                                                        x.GetRequiredService<IApiConsumerService>(),
-                                                        x.GetRequiredService<ISettingsService>(),
-                                                        x.GetRequiredService<ILogger<StockQuoteAlertService>>(),
-                                                        alertStock
-                                                        ));
+                           services.AddLogging(
+                                   builder =>
+                                   {
+                                       builder.AddFilter("Microsoft", LogLevel.Warning)
+                                               .AddFilter("System", LogLevel.Warning)
+                                               .AddConsole();
+                                   });
+                        
+                           services.AddTransient<ISettingsService>((x) =>
+                                                new SettingsService($"{Directory.GetCurrentDirectory()}\\{_settingsFile}"));
+                           services.AddTransient<IMailSenderService, MailSenderService>();
+                           services.AddTransient<IApiConsumerService, ApiConsumerService>();
+                           services.AddTransient<IStockQuoteAlertService>((x) => 
+                                                new StockQuoteAlertService(x.GetRequiredService<IMailSenderService>(),
+                                                                            x.GetRequiredService<IApiConsumerService>(),
+                                                                            x.GetRequiredService<ISettingsService>(),
+                                                                            x.GetRequiredService<ILogger<StockQuoteAlertService>>(),
+                                                                            alertStock
+                                                                            ));
+                           services.AddHostedService((x) => new StockQuoteAlertService(x.GetRequiredService<IMailSenderService>(),
+                                                            x.GetRequiredService<IApiConsumerService>(),
+                                                            x.GetRequiredService<ISettingsService>(),
+                                                            x.GetRequiredService<ILogger<StockQuoteAlertService>>(),
+                                                            alertStock
+                                                            ));
                        });
         }
     }
